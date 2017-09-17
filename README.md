@@ -1,1 +1,3 @@
-# law-schools-reporter
+# Law Schools Reporter
+
+## [License](/LICENSE.md)
