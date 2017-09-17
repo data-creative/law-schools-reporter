@@ -46,7 +46,7 @@ Add license:
 
 ```shell
 touch LICENSE.md
-atom LICENSE.md # then paste in:
+atom LICENSE.md
 ```
 
     # License
@@ -59,4 +59,47 @@ atom LICENSE.md # then paste in:
 ```shell
 git add .
 git commit -m "Add license"
+```
+
+
+
+
+
+
+
+
+
+Configure documentation and test suites:
+
+```rb
+# Gemfile (comment-out non-essential gems and make the following additions additions)
+# ...
+ruby "2.2.5"
+# ...
+gem 'yard', group: :doc # run `bundle exec yard doc` to parse comments and/or `bundle exec yard server` to view documentation at *localhost:8808*
+# ...
+group :development, :test do
+  # ...
+  gem 'pry'
+  gem 'rspec-rails', '~> 3.0'
+end
+```
+
+```shell
+bundle install
+
+bundle exec yard doc
+touch .yardoc/.gitignore
+touch doc/.gitignore
+```
+
+    *
+    !.gitignore
+
+
+```shell
+git add .
+git commit -m "Add docs"
+
+bundle exec rails generate rspec:install
 ```
