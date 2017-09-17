@@ -1,5 +1,7 @@
 # Process Documentation
 
+## Prerequisites
+
 Install rails prerequisites:
 
 ```shell
@@ -14,6 +16,7 @@ gem install rails
 ```
 
 
+## Generating
 
 Generate a new rails app:
 
@@ -23,7 +26,7 @@ cd law_school_reporter/
 ```
 
 
-
+## Version Control
 
 Initialize a new git repo:
 
@@ -38,7 +41,7 @@ git push origin master
 ```
 
 
-
+## License
 
 
 
@@ -64,34 +67,44 @@ git commit -m "Add license"
 
 
 
+## Gems
 
-
-
-
-
-Configure documentation and test suites:
+Revise `Gemfile`:
 
 ```rb
-# Gemfile (comment-out non-essential gems and make the following additions additions)
 # ...
 ruby "2.2.5"
+
 # ...
+
 gem 'yard', group: :doc # run `bundle exec yard doc` to parse comments and/or `bundle exec yard server` to view documentation at *localhost:8808*
+
 # ...
+
 group :development, :test do
   # ...
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
+  gem "factory_girl_rails"
 end
 ```
 
 ```shell
 bundle install
+```
 
+## Documentation
+
+
+Configure documentation:
+
+```shell
 bundle exec yard doc
 touch .yardoc/.gitignore
 touch doc/.gitignore
 ```
+
+Add to each of `.yardoc/.gitignore` and `doc/.gitignore`:
 
     *
     !.gitignore
@@ -100,6 +113,79 @@ touch doc/.gitignore
 ```shell
 git add .
 git commit -m "Add docs"
+```
 
+## Tests
+
+```shell
+rm -rf test/
+```
+
+```shell
 bundle exec rails generate rspec:install
+mkdir spec/support
+touch spec/support/factory_girl.rb
+```
+
+Revise `spec/rails_helper.rb`:
+
+    # ...
+
+    # Add additional requires below this line. Rails is not loaded until this point!
+    require 'support/factory_girl'
+
+    # ...
+
+    # RSpec.configure do |config|
+
+    # ...
+
+      # Configure Shoulda Matchers
+      Shoulda::Matchers.configure do |config|
+        config.integrate do |with|
+          with.test_framework :rspec
+
+          with.library :rails
+        end
+      end
+
+    # ...
+
+
+Add to `application/config.rb`:
+
+    # ...
+
+    config.generators do |g|
+      g.test_framework :rspec
+      g.assets = false
+      g.helper = false
+    end
+
+    # ...
+
+
+```shell
+bundle exec rspec spec/
+```
+
+```shell
+git add .
+git commit -m "Add test suite"
+```
+
+
+
+
+
+
+
+
+## Local Databases
+
+
+Create local databases:
+
+```shell
+bundle exec rake db:create
 ```
