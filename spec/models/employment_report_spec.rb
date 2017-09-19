@@ -22,5 +22,9 @@ RSpec.describe EmploymentReport, type: :model do
       subject { build(:employment_report) }
       it { should validate_uniqueness_of(:school_name).scoped_to(:year) }
     end
+
+    context "counts" do
+      
+    end
   end
 end
