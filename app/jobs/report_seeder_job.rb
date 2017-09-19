@@ -3,7 +3,7 @@ require "csv"
 class ReportSeederJob < ApplicationJob
   queue_as :default
 
-  def perform(options)
+  def perform(options = {})
     years = options[:years] || (2012..2017).to_a
 
     puts "-------------------------------"
@@ -32,10 +32,9 @@ class ReportSeederJob < ApplicationJob
             employment_statuses: parsed_row.employment_statuses,
             employment_locations: parsed_row.employment_locations
           })
-        rescue => e
-          binding.pry
+        rescue UnexpectedNullInteger => e
+          puts "UNEXPECTED NULL VALUE FOR #{report.school_name.upcase} in #{year}"
         end
-
       end
     end
   end
