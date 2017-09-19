@@ -19,7 +19,10 @@ ActiveRecord::Schema.define(version: 20170919025834) do
     t.string "school_name", null: false
     t.integer "year", null: false
     t.integer "total_grads"
-    t.text "findings"
+    t.integer "total_employed"
+    t.text "employment_types"
+    t.text "employment_statuses"
+    t.text "employment_locations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

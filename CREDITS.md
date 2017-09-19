@@ -220,8 +220,8 @@ So the new list of headers (maybe more manageable) is:
   "TotalGraduatesNumber",
 
   "Solo",
-  "10-Feb",
-  "25-Nov",
+  "10-Feb", # needs to be resolved by re-exporting CSV files from their XLS sources
+  "25-Nov", # needs to be resolved by re-exporting CSV files from their XLS sources
   "26-50",
   "51-100",
   "101-250",
@@ -269,8 +269,8 @@ Total Graduates `TotalGraduatesNumber`) is equal to the sum of:
 The total number employed (`Total`) is equal to the sum of aforementioned "employed" employment statuses, as well as the sum of the following employment types:
 
   + `Solo`
-  + `10-Feb`
-  + `25-Nov`
+  + `10-Feb` should be ("2-10")
+  + `25-Nov` should be ("11-25")
   + `26-50`
   + `51-100`
   + `101-250`
