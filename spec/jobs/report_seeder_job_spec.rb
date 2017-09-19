@@ -18,7 +18,7 @@ RSpec.describe ReportSeederJob, type: :job do
   #end
 
   #it "should include reports for all available years" do
-  #  expect(reporting_years).to match_array(years.count)
+  #  expect(reporting_years).to match_array(years)
   #end
 
   it "should include reports from all available schools" do
