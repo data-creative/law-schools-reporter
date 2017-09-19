@@ -86,6 +86,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails', '~> 3.0'
   gem "factory_girl_rails"
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end
 ```
 
@@ -188,4 +189,18 @@ Create local databases:
 
 ```shell
 bundle exec rake db:create
+```
+
+## Domain-specific Development
+
+```shell
+# rails g model advertiser name:string:uniq description:text url:string
+# rails g model ad advertiser:references title:string content:text url:string image_url:string
+
+rails g model school uuid:integer:uniq short_name:string:uniq name:string alt_name:string year_founded:integer url:string reports_index_url:string
+```
+
+```shell
+rails g job report_seeder
+rails g job school_seeder
 ```
