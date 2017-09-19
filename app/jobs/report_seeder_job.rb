@@ -54,7 +54,9 @@ class ReportSeederJob < ApplicationJob
       header.include?("PTLT") || header.include?("PTST") ||
       header.include?("FullTimeLongTerm") || header.include?("FullTimeShortTerm") ||
       header.include?("PartTimeLongTerm") || header.include?("PartTimeShortTerm") ||
-      header.include?("Funded_")
+      header.include?("Funded_") ||
+      header.include?(" LT") || header.include?(" ST") || # 2011 only
+      header.include?("Long Term") || header.include?("Short Term") # 2011 only
     } # use `.compact` to get rid of ~2000 nil columns in year 2013
   end
 

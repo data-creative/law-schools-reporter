@@ -286,9 +286,62 @@ The total number employed (`Total`) is equal to the sum of aforementioned "emplo
   + `Academia`
   + `UnknownEmployerType`
 
-### Reconciliation of Headers
+### Investigation of Headers
 
 ```rb
+# 2011:
+exclude " LT", " ST", "Long Term", and "Short Term"
+
+"university"
+"yr"
+"Number Employed"
+"Purs Grad Deg FT"
+"Unempl Not Seek"
+"Unemployed Seek"
+"Emp Status Unk"
+"Total Graduates"
+"Law Schl Funded"
+
+"Emp Solo"
+"Emp 2-10"
+"Emp 11-25"
+"Emp 26-50"
+"Emp 51-100"
+"Emp 101-250"
+"Emp 251-500"
+"Emp 501+"
+"Emp Type Unk"
+"Bus & Ind"
+"Government"
+"Public Interest"
+"Federal"
+"State & local"
+"Academia"
+"Emp Type Unk"
+"Tot Emp Type"
+
+"State 1 Lrgst Emp"
+"State 1 Lrgst Emp Num"
+"State 2 Lrgst Emp"
+"State 2 Lrgst Emp Num"
+"State 3 Lrgst Emp"
+"State 3 Lrgst Emp Num"
+"Emp Forgn Countries"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # 2012:
 
 [
@@ -305,6 +358,7 @@ The total number employed (`Total`) is equal to the sum of aforementioned "emplo
   "EmploymentStatusUnknownNumber",
   "TotalGraduatesNumber",
   "Funded Position",
+
   "Solo",
   "2-10",
   "11-25",
@@ -323,6 +377,7 @@ The total number employed (`Total`) is equal to the sum of aforementioned "emplo
   "Academia",
   "UnknownEmployerType Total",
   "Total",
+
   "FirstLargestEmployment",
   "FirstLargestEmploymentNumber",
   "SecondLargestEmployment",
@@ -542,3 +597,5 @@ The total number employed (`Total`) is equal to the sum of aforementioned "emplo
   "EmployedInForeignCountries"
 ]
 ```
+
+### Reconciliation and Standardization of Headers

@@ -1,27 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe ReportSeederJob, type: :job do
-  #let(:years){ (2011..2017).to_a }
-  let(:years){ (2012..2017).to_a }
-  #let(:years){ [2016, 2017] }
+  let(:years){ (2011..2017).to_a }
   let(:batches){
     {
-      "2011" => 200,
-      "2012" => 197,
-      "2013" => 216,
-      "2014" => 203,
-      "2015" => 203,
-      "2016" => 208,
-      "2017" => 223
+      "2011" => 200, "2012" => 197, "2013" => 216, "2014" => 203, "2015" => 203,
+      "2016" => 208, "2017" => 223
     }
   }
   let(:batch_sizes){ years.map{|year| batches[year.to_s] } }
 
   before(:all) do
     EmploymentReport.delete_all # not sure why this is necessary
-    #described_class.new.perform(years: (2011..2017).to_a)
-    described_class.new.perform(years: (2012..2017).to_a)
-    #described_class.new.perform(years: [2016, 2017])
+    described_class.new.perform(years: (2011..2017).to_a)
   end
 
   it "should populate the employment_reports table" do
