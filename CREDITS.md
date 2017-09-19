@@ -220,8 +220,8 @@ So the new list of headers (maybe more manageable) is:
   "TotalGraduatesNumber",
 
   "Solo",
-  "10-Feb", # needs to be resolved by re-exporting CSV files from their XLS sources
-  "25-Nov", # needs to be resolved by re-exporting CSV files from their XLS sources
+  "10-Feb", # this should be "2-10". when I open the XLS file in Numbers, this header is what I see. So now I'm thinking this is a result of a faulty manual CSV export process by the webmaster. A manual mistake like this would strengthen the case for an API.
+  "25-Nov", # this should be "11-25". when I open the XLS file in Numbers, this header is what I see. So now I'm thinking this is a result of a faulty manual CSV export process by the webmaster. A manual mistake like this would strengthen the case for an API.
   "26-50",
   "51-100",
   "101-250",
