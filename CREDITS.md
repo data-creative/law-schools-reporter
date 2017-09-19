@@ -1,9 +1,19 @@
 # Credits, Notes, and Reference
 
-2017 report headers:
+## CSV Files
+
+SEEDING EMPLOYMENT REPORTS:
+
+   + 2011 -- 69 HEADERS -- 200/200 ROWS
+   + 2012 -- 134 HEADERS -- 197/197 ROWS
+   + 2013 -- 255 HEADERS -- 216/219 ROWS
+   + 2014 -- 154 HEADERS -- 203/203 ROWS
+   + 2015 -- 154 HEADERS -- 203/203 ROWS
+   + 2016 -- 159 HEADERS -- 208/208 ROWS
+   + 2017 -- 159 HEADERS -- 223/223 ROWS
 
 ```rb
-headers = [
+2017_headers = [
   "SchoolName",
 
   "EmployedBarPassageRequiredFTLT",

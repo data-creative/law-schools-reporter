@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 20170919025834) do
   enable_extension "plpgsql"
 
   create_table "employment_reports", force: :cascade do |t|
-    t.string "school_name"
-    t.integer "year"
+    t.string "school_name", null: false
+    t.integer "year", null: false
     t.integer "total_grads"
     t.text "findings"
     t.datetime "created_at", null: false
