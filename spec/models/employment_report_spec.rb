@@ -4,7 +4,7 @@ RSpec.describe EmploymentReport, type: :model do
   describe "attributes" do
     it { should serialize(:employment_statuses).as(Hash) }
     it { should serialize(:employment_types).as(Hash) }
-    it { should serialize(:employment_locations).as(Hash) }
+    it { should serialize(:employment_locations).as(Array) }
   end
 
   #describe "associations" do
@@ -24,7 +24,7 @@ RSpec.describe EmploymentReport, type: :model do
     end
 
     context "counts" do
-      
+
     end
   end
 end

@@ -38,16 +38,41 @@ RSpec.describe ReportSeederJob, type: :job do
       expect(report.total_employed.to_i).to eql(124)
     end
 
-    it "should persist employment types" do
-      expect(report.employment_types).to eql({})
+    it "should persist employment statuses" do
+      expect(report.employment_statuses).to eql({})
     end
 
-    it "should persist employment statuses" do
-      expect(report.employment_statuses[:law_firms][:step_25].to_i).to eql(6)
+    it "should persist employment types" do
+      expected_types = {
+        :law_firms=>{
+          :solo=>5,
+          :step_10=>33,
+          :step_25=>6,
+          :step_50=>3,
+          :step_100=>3,
+          :step_250=>9,
+          :step_500=>2,
+          :over_500=>1,
+          :size_unknown=>1
+        },
+        :business=>32,
+        :government=>23,
+        :public_interest=>2,
+        :clerkships=>{:federal=>1, :state_local=>1, :other=>1},
+        :academia=>1,
+        :employer_type_unknown=>0
+      }
+      expect(report.employment_types).to eql(expected_types)
     end
 
     it "should persist employment locations" do
-      expect(report.employment_locations).to eql({})
+      expected_locations = [
+        {"label"=>"State of Largest Employment", "location"=>"Ohio", "count"=>105},
+        {"label"=>"State of 2nd Largest Employment", "location"=>"Pennsylvania", "count"=>6},
+        {"label"=>"State of 3rd Largest Employment", "location"=>"California", "count"=>2},
+        {"label"=>"Employed in Foreign Countries", "location"=>"Foreign Countries", "count"=>0}
+      ]
+      expect(report.employment_locations).to eql(expected_locations)
     end
   end
 end

@@ -200,6 +200,20 @@ headers = row.headers.reject{|header|
 }
 ```
 
+Edit:
+
+```rb
+headers = row.headers.compact.reject{ |header|
+  header.include?("FTLT") || header.include?("FTST") ||
+  header.include?("PTLT") || header.include?("PTST") ||
+  header.include?("FullTimeLongTerm") || header.include?("FullTimeShortTerm") ||
+  header.include?("PartTimeLongTerm") || header.include?("PartTimeShortTerm") ||
+  header.include?("Funded_") ||
+  header.include?(" LT") || header.include?(" ST") || # 2011 only
+  header.include?("Long Term") || header.include?("Short Term") # 2011 only
+} # use `.compact` to get rid of ~2000 nil columns in year 2013
+```
+
 So the new list of headers (maybe more manageable) is:
 
 ```rb
@@ -599,3 +613,5 @@ exclude " LT", " ST", "Long Term", and "Short Term"
 ```
 
 ### Reconciliation and Standardization of Headers
+
+See results in `db/seeds/batch_employment_reports/header_reconciliation.csv` and optionally make use of that file during the parsing process. Moving forward for now with a somewhat more conditional but still sufficient approach.

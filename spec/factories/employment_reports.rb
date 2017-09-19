@@ -5,7 +5,7 @@ FactoryGirl.define do
     total_grads nil
     employment_statuses {}
     employment_types {}
-    employment_locations {}
+    employment_locations []
   end
 
   #trait :with_statuses do
@@ -17,7 +17,7 @@ FactoryGirl.define do
   #end
 
   #trait :with_locations do
-  #  employment_locations {...}
+  #  employment_locations [...]
   #end
 
 end
