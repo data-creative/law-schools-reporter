@@ -13,7 +13,7 @@ SEEDING EMPLOYMENT REPORTS:
    + 2017 -- 159 HEADERS -- 223/223 ROWS
 
 ```rb
-2017_headers = [
+row.headers #> [
   "SchoolName",
 
   "EmployedBarPassageRequiredFTLT",
@@ -180,3 +180,108 @@ SEEDING EMPLOYMENT REPORTS:
   "EmployedInForeignCountries"
 ]
 ```
+
+Can continue to exclude the following sub-counts (for now), to reduce complexity:
+
+  + FULL TIME LONG TERM (FTLT)
+  + FULL TIME SHORT TERM (FTST)
+  + PART TIME LONG TERM (PTLT)
+  + PART TIME SHORT TERM (PTST)
+
+Can also get rid of headers with the `Funded_` prefix
+
+```rb
+headers = row.headers.reject{|header|
+  header.include?("FTLT") || header.include?("FTST") ||
+  header.include?("PTLT") || header.include?("PTST") ||
+  header.include?("FullTimeLongTerm") || header.include?("FullTimeShortTerm") ||
+  header.include?("PartTimeLongTerm") || header.include?("PartTimeShortTerm") ||
+  header.include?("Funded_")
+}
+```
+
+So the new list of headers (maybe more manageable) is:
+
+```rb
+[
+  "SchoolName",
+
+  "EmployedBarPassageRequiredNumber",
+  "EmployedJDAdvantageNumber",
+  "EmployedProfessionPositionNumber",
+  "EmployedNonProfessionPositionNumber",
+  "EmployedLawSchoolNumber",
+  "EmployedUndeterminableNumber",
+  "EmployedPursuingGraduateDegreeNumber",
+  "UnEmployedStartDateDeferredNumber",
+  "UnEmployedNotSeekingNumber",
+  "UnEmployedSeekingNumber",
+  "EmploymentStatusUnknownNumber",
+  "TotalGraduatesNumber",
+
+  "Solo",
+  "10-Feb",
+  "25-Nov",
+  "26-50",
+  "51-100",
+  "101-250",
+  "251-500",
+  "501-PLUS",
+  "Unknown",
+  "BusinessIndustry",
+  "Government",
+  "PublicInterest",
+  "Federal",
+  "StateLocal",
+  "Other",
+  "Academia",
+  "UnknownEmployerType",
+  "Total",
+
+  "FirstLargestEmployment",
+  "FirstLargestEmploymentNumber",
+  "SecondLargestEmployment",
+  "SecondLargestEmploymentNumber",
+  "ThirdLargestEmployment",
+  "ThirdLargestEmploymentNumber",
+  "EmployedInForeignCountries"
+]
+```
+
+### Employment Statuses
+
+Total Graduates `TotalGraduatesNumber`) is equal to the sum of:
+
+  + `EmployedBarPassageRequiredNumber` (employed)
+  + `EmployedJDAdvantageNumber` (employed)
+  + `EmployedProfessionPositionNumber` (employed)
+  + `EmployedNonProfessionPositionNumber` (employed)
+  + `EmployedLawSchoolNumber` (employed)
+  + `EmployedUndeterminableNumber` (employed)
+  + `EmployedPursuingGraduateDegreeNumber` (employed)
+  + `UnEmployedStartDateDeferredNumber`
+  + `UnEmployedNotSeekingNumber`
+  + `UnEmployedSeekingNumber`
+  + `EmploymentStatusUnknownNumber`
+
+### Employment Types
+
+The total number employed (`Total`) is equal to the sum of aforementioned "employed" employment statuses, as well as the sum of the following employment types:
+
+  + `Solo`
+  + `10-Feb`
+  + `25-Nov`
+  + `26-50`
+  + `51-100`
+  + `101-250`
+  + `251-500`
+  + `501-PLUS`
+  + `Unknown`
+  + `BusinessIndustry`
+  + `Government`
+  + `PublicInterest`
+  + `Federal`
+  + `StateLocal`
+  + `Other`
+  + `Academia`
+  + `UnknownEmployerType`

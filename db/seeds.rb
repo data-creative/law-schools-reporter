@@ -11,4 +11,4 @@
 
 # SchoolSeederJob.new.perform
 
-# ReportSeederJob.new.perform
+ReportSeederJob.new.perform(years: [2016, 2017])
