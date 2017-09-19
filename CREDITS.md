@@ -264,7 +264,7 @@ So the new list of headers (maybe more manageable) is:
 
 ### Employment Statuses
 
-Total Graduates `TotalGraduatesNumber`) is equal to the sum of:
+Total Graduates (`TotalGraduatesNumber`) is equal to the sum of:
 
   + `EmployedBarPassageRequiredNumber` (employed)
   + `EmployedJDAdvantageNumber` (employed)
@@ -341,19 +341,6 @@ exclude " LT", " ST", "Long Term", and "Short Term"
 "State 3 Lrgst Emp"
 "State 3 Lrgst Emp Num"
 "Emp Forgn Countries"
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # 2012:
@@ -615,3 +602,49 @@ exclude " LT", " ST", "Long Term", and "Short Term"
 ### Reconciliation and Standardization of Headers
 
 See results in `db/seeds/batch_employment_reports/header_reconciliation.csv` and optionally make use of that file during the parsing process. Moving forward for now with a somewhat more conditional but still sufficient approach.
+
+
+### Analysis of Results
+
+The following reports were found to have zero total graduates. This might be worth investigating further, but at the moment I'm comfortable excluding them from the reporting universe.
+
+school_name	|	year	|	total_grads	|	total_employed
+---	|	---	|	---	|	---
+AMERICAN JUSTICE	|	2013	|	0	|	0
+AMERICAN JUSTICE	|	2017	|	0	|	0
+BELMONT UNIVERSITY	|	2013	|	0	|	0
+BELMONT UNIVERSITY	|	2014	|	0	|	0
+CONCORDIA LAW SCHOOL	|	2013	|	0	|	0
+EUGENIO MARIA DE HOSTOS SCHOOL OF LAW	|	2013	|	0	|	0
+EUGENIO MARIA DE HOSTOS SCHOOL OF LAW	|	2017	|	0	|	0
+GENERIC UNIVERSITY SCHOOL OF LAW	|	2017	|	0	|	0
+HAMLINE UNIVERSITY	|	2017	|	0	|	0
+INDIANA TECH	|	2017	|	0	|	0
+JUDGE ADVOCATE GENERAL'S SCHOOL	|	2013	|	0	|	0
+JUDGE ADVOCATE GENERAL'S SCHOOL	|	2017	|	0	|	0
+LINCOLN MEMORIAL	|	2013	|	0	|	0
+LINCOLN MEMORIAL	|	2014	|	0	|	0
+PEKING CHINA	|	2013	|	0	|	0
+PEKING CHINA	|	2017	|	0	|	0
+PENNSYLVANIA STATE UNIVERSITY	|	2016	|	0	|	0
+PENNSYLVANIA STATE UNIVERSITY	|	2017	|	0	|	0
+RUTGERS UNIVERSITY-CAMDEN	|	2016	|	0	|	0
+RUTGERS UNIVERSITY-CAMDEN	|	2017	|	0	|	0
+RUTGERS UNIVERSITY-NEWARK	|	2016	|	0	|	0
+RUTGERS UNIVERSITY-NEWARK	|	2017	|	0	|	0
+THOMAS M. COOLEY LAW SCHOOL - ANN ARBOR	|	2013	|	0	|	0
+THOMAS M. COOLEY LAW SCHOOL - ANN ARBOR	|	2017	|	0	|	0
+THOMAS M. COOLEY LAW SCHOOL - TAMPA BAY	|	2013	|	0	|	0
+THOMAS M. COOLEY LAW SCHOOL - TAMPA BAY	|	2017	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW - AUBURN HILLS	|	2013	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW - AUBURN HILLS	|	2017	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW - GRAND RAPIDS	|	2013	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW - GRAND RAPIDS	|	2017	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW - LANSING	|	2013	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW - LANSING	|	2017	|	0	|	0
+THOMAS M. COOLEY SCHOOL OF LAW – MICHIGAN	|	2017	|	0	|	0
+UNIVERSITY OF THE DISTRICT OF COLUMBIA	|	2013	|	0	|	0
+UNIVERSITY OF THE DISTRICT OF COLUMBIA	|	2017	|	0	|	0
+UNT DALLAS COLLEGE OF LAW	|	2016	|	0	|	0
+UNT DALLAS COLLEGE OF LAW	|	2017	|	0	|	0
+WILLIAM MITCHELL COLLEGE OF LAW	|	2017	|	0	|	0
