@@ -22,9 +22,27 @@ RSpec.describe EmploymentReport, type: :model do
       subject { build(:employment_report) }
       it { should validate_uniqueness_of(:school_name).scoped_to(:year) }
     end
+  end
 
-    context "counts" do
+  describe "class methods" do
+    describe ".with_grads" do
+      let(:studentless_report){ create(:employment_report, :without_grads) }
+      let(:reports){
+        [
+          create(:employment_report, :with_grads),
+          create(:employment_report, :with_grads),
+          studentless_report
+        ]
+      }
 
+      before(:each) do
+        EmploymentReport.delete_all # not sure why this is necessary (maybe database cleaner has a bug?)
+        reports
+      end
+
+      it "should not include reports which have zero graduates" do
+        expect(described_class.with_grads.include?(studentless_report)).to eql(false)
+      end
     end
   end
 end

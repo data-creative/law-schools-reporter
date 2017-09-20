@@ -11,7 +11,7 @@ RSpec.describe ReportSeederJob, type: :job do
   let(:batch_sizes){ years.map{|year| batches[year.to_s] } }
 
   before(:all) do
-    EmploymentReport.delete_all # not sure why this is necessary
+    EmploymentReport.delete_all # not sure why this is necessary (maybe database cleaner has a bug?)
     described_class.new.perform(years: (2012..2017).to_a)
   end
 
