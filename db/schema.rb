@@ -25,6 +25,9 @@ ActiveRecord::Schema.define(version: 20170919025834) do
     t.text "employment_locations"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["school_name", "year"], name: "index_employment_reports_on_school_name_and_year", unique: true
+    t.index ["school_name"], name: "index_employment_reports_on_school_name"
+    t.index ["year"], name: "index_employment_reports_on_year"
   end
 
 end

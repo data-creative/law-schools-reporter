@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ReportSeederJob, type: :job do
-  let(:years){ (2012..2017).to_a }
+  #let(:years){ (2012..2017).to_a }
+  let(:years){ (2016..2017).to_a }
   let(:batches){
     {
       "2011" => 200, "2012" => 197, "2013" => 216, "2014" => 203, "2015" => 203,
@@ -11,7 +12,7 @@ RSpec.describe ReportSeederJob, type: :job do
   let(:batch_sizes){ years.map{|year| batches[year.to_s] } }
 
   before(:all) do
-    described_class.new.perform(years: (2012..2017).to_a)
+    described_class.new.perform(years: (2016..2017).to_a)
   end
 
   after(:all) do

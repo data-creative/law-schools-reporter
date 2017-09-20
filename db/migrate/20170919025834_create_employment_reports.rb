@@ -11,5 +11,9 @@ class CreateEmploymentReports < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    add_index :employment_reports, :school_name
+    add_index :employment_reports, :year
+    add_index :employment_reports, [:school_name, :year], unique: true
   end
 end
