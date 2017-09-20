@@ -606,6 +606,8 @@ See results in `db/seeds/batch_employment_reports/header_reconciliation.csv` and
 
 ### Analysis of Results
 
+#### Grad-less Reports
+
 The following reports were found to have zero total graduates. This might be worth investigating further, but at the moment I'm comfortable excluding them from the reporting universe.
 
 school_name	|	year	|	total_grads	|	total_employed
@@ -648,3 +650,522 @@ UNIVERSITY OF THE DISTRICT OF COLUMBIA	|	2017	|	0	|	0
 UNT DALLAS COLLEGE OF LAW	|	2016	|	0	|	0
 UNT DALLAS COLLEGE OF LAW	|	2017	|	0	|	0
 WILLIAM MITCHELL COLLEGE OF LAW	|	2017	|	0	|	0
+
+Further-investigating these grad-less reports:
+
+```rb
+EmploymentReport.where(:total_grads => 0).each do |report|
+  puts "-------------------"
+  puts "#{report.year} -- #{report.school_name}"
+  #pp report.employment_types # all these counts are zero, as expected
+  pp report.employment_locations # but these aren't, which is puzzling (see output below)
+end
+
+#>
+=begin
+-------------------
+2013 -- AMERICAN JUSTICE
+[{"label"=>"State of Largest Employment",
+  "location"=>"New York",
+  "count"=>154},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Pennsylvania",
+  "count"=>7},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"California",
+  "count"=>4},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- BELMONT UNIVERSITY
+[{"label"=>"State of Largest Employment", "location"=>"Texas", "count"=>117},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Oklahoma",
+  "count"=>2},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"California",
+  "count"=>1},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- CONCORDIA LAW SCHOOL
+[{"label"=>"State of Largest Employment",
+  "location"=>"New York",
+  "count"=>316},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"California",
+  "count"=>34},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"District Of Columbia",
+  "count"=>32},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- EUGENIO MARIA DE HOSTOS SCHOOL OF LAW
+[{"label"=>"State of Largest Employment", "location"=>"Georgia", "count"=>121},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New York",
+  "count"=>24},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>22},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- JUDGE ADVOCATE GENERAL'S SCHOOL
+[{"label"=>"State of Largest Employment",
+  "location"=>"Illinois",
+  "count"=>273},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Alabama",
+  "count"=>3},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>3},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- LINCOLN MEMORIAL
+[{"label"=>"State of Largest Employment", "location"=>"Virginia", "count"=>32},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"North Carolina",
+  "count"=>6},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>3},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- PEKING CHINA
+[{"label"=>"State of Largest Employment",
+  "location"=>"New York",
+  "count"=>140},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>16},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Connecticut",
+  "count"=>13},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- THOMAS M. COOLEY LAW SCHOOL - ANN ARBOR
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>223},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>24},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>19},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- THOMAS M. COOLEY LAW SCHOOL - TAMPA BAY
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>223},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>24},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>19},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- THOMAS M. COOLEY SCHOOL OF LAW - AUBURN HILLS
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>223},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>24},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>19},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- THOMAS M. COOLEY SCHOOL OF LAW - GRAND RAPIDS
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>223},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>24},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>19},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- THOMAS M. COOLEY SCHOOL OF LAW - LANSING
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>223},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>24},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>19},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2013 -- UNIVERSITY OF THE DISTRICT OF COLUMBIA
+[{"label"=>"State of Largest Employment", "location"=>"Nevada", "count"=>117},
+ {"label"=>"State of 2nd Largest Employment", "location"=>"Utah", "count"=>4},
+ {"label"=>"State of 3rd Largest Employment", "location"=>"Texas", "count"=>2},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2014 -- BELMONT UNIVERSITY
+[{"label"=>"State of Largest Employment", "location"=>"Texas", "count"=>135},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Michigan",
+  "count"=>2},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Oklahoma",
+  "count"=>2},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2014 -- LINCOLN MEMORIAL
+[{"label"=>"State of Largest Employment", "location"=>"Virginia", "count"=>30},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>4},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"District Of Columbia",
+  "count"=>3},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2016 -- PENNSYLVANIA STATE UNIVERSITY
+[{"label"=>"State of Largest Employment", "location"=>"New York", "count"=>97},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>10},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Connecticut",
+  "count"=>8},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2016 -- RUTGERS UNIVERSITY-CAMDEN
+[{"label"=>"State of Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>263},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New York",
+  "count"=>55},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Pennsylvania",
+  "count"=>25},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2016 -- RUTGERS UNIVERSITY-NEWARK
+[{"label"=>"State of Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>263},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New York",
+  "count"=>55},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Pennsylvania",
+  "count"=>25},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2016 -- UNT DALLAS COLLEGE OF LAW
+[{"label"=>"State of Largest Employment", "location"=>"Nevada", "count"=>106},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"California",
+  "count"=>4},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Arizona",
+  "count"=>1},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- AMERICAN JUSTICE
+[{"label"=>"State of Largest Employment",
+  "location"=>"New York",
+  "count"=>126},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>3},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"District of Columbia",
+  "count"=>2},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- EUGENIO MARIA DE HOSTOS SCHOOL OF LAW
+[{"label"=>"State of Largest Employment", "location"=>"Georgia", "count"=>136},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New York",
+  "count"=>35},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Florida",
+  "count"=>17},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- GENERIC UNIVERSITY SCHOOL OF LAW
+[{"label"=>"State of Largest Employment",
+  "location"=>"New York",
+  "count"=>298},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>10},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"California",
+  "count"=>6},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- HAMLINE UNIVERSITY
+[{"label"=>"State of Largest Employment",
+  "location"=>"Washington",
+  "count"=>58},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Arizona",
+  "count"=>5},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"California",
+  "count"=>4},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- INDIANA TECH
+[{"label"=>"State of Largest Employment",
+  "location"=>"Illinois",
+  "count"=>109},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"California",
+  "count"=>7},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Missouri",
+  "count"=>6},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- JUDGE ADVOCATE GENERAL'S SCHOOL
+[{"label"=>"State of Largest Employment",
+  "location"=>"Illinois",
+  "count"=>218},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"California",
+  "count"=>4},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Indiana",
+  "count"=>4},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- PEKING CHINA
+[{"label"=>"State of Largest Employment",
+  "location"=>"New York",
+  "count"=>128},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>15},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Connecticut",
+  "count"=>6},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- PENNSYLVANIA STATE UNIVERSITY
+[{"label"=>"State of Largest Employment",
+  "location"=>"Pennsylvania",
+  "count"=>44},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>4},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"New York",
+  "count"=>4},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- RUTGERS UNIVERSITY-CAMDEN
+[{"label"=>"State of Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>238},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New York",
+  "count"=>32},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Pennsylvania",
+  "count"=>17},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- RUTGERS UNIVERSITY-NEWARK
+[{"label"=>"State of Largest Employment",
+  "location"=>"New Jersey",
+  "count"=>238},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"New York",
+  "count"=>32},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Pennsylvania",
+  "count"=>17},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- THOMAS M. COOLEY LAW SCHOOL - ANN ARBOR
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>181},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>71},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- THOMAS M. COOLEY LAW SCHOOL - TAMPA BAY
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>181},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>71},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- THOMAS M. COOLEY SCHOOL OF LAW - AUBURN HILLS
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>181},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>71},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- THOMAS M. COOLEY SCHOOL OF LAW - GRAND RAPIDS
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>181},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>71},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- THOMAS M. COOLEY SCHOOL OF LAW - LANSING
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>181},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>71},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- THOMAS M. COOLEY SCHOOL OF LAW – MICHIGAN
+[{"label"=>"State of Largest Employment",
+  "location"=>"Michigan",
+  "count"=>181},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"Florida",
+  "count"=>71},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- UNIVERSITY OF THE DISTRICT OF COLUMBIA
+[{"label"=>"State of Largest Employment", "location"=>"Nevada", "count"=>100},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"District of Columbia",
+  "count"=>1},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>1},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- UNT DALLAS COLLEGE OF LAW
+[{"label"=>"State of Largest Employment", "location"=>"Nevada", "count"=>100},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"District of Columbia",
+  "count"=>1},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"Illinois",
+  "count"=>1},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+-------------------
+2017 -- WILLIAM MITCHELL COLLEGE OF LAW
+[{"label"=>"State of Largest Employment", "location"=>"Virginia", "count"=>67},
+ {"label"=>"State of 2nd Largest Employment",
+  "location"=>"District of Columbia",
+  "count"=>33},
+ {"label"=>"State of 3rd Largest Employment",
+  "location"=>"New York",
+  "count"=>16},
+ {"label"=>"Employed in Foreign Countries",
+  "location"=>"Foreign Countries",
+  "count"=>0}]
+=end
+```
