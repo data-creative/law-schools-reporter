@@ -116,6 +116,8 @@ class ReportSeederJob < ApplicationJob
       ]
     end
 
+    private
+
     def parse_int(val)
       raise UnexpectedNullInteger if val.nil? # if there is a nil, don't covert it to zero (which would happen if calling nil.to_i)
       return val.to_i

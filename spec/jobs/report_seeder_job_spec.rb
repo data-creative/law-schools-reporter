@@ -48,17 +48,7 @@ RSpec.describe ReportSeederJob, type: :job do
 
     it "should persist employment types" do
       expected_types = {
-        :law_firms=>{
-          :solo=>5,
-          :step_10=>33,
-          :step_25=>6,
-          :step_50=>3,
-          :step_100=>3,
-          :step_250=>9,
-          :step_500=>2,
-          :over_500=>1,
-          :unknown_size=>1
-        },
+        :law_firms=>{ :solo=>5, :step_10=>33, :step_25=>6, :step_50=>3, :step_100=>3, :step_250=>9, :step_500=>2, :over_500=>1, :unknown_size=>1},
         :business=>32,
         :government=>23,
         :public_interest=>2,
