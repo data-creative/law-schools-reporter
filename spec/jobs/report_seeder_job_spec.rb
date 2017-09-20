@@ -11,8 +11,11 @@ RSpec.describe ReportSeederJob, type: :job do
   let(:batch_sizes){ years.map{|year| batches[year.to_s] } }
 
   before(:all) do
-    EmploymentReport.delete_all # not sure why this is necessary (maybe database cleaner has a bug?)
     described_class.new.perform(years: (2012..2017).to_a)
+  end
+
+  after(:all) do
+    EmploymentReport.delete_all # because the process will create actual records in the test db which, I guess unlike factories, will not otherwise be deleted at the end of each test.
   end
 
   it "should populate the employment_reports table" do

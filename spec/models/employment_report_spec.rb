@@ -36,7 +36,6 @@ RSpec.describe EmploymentReport, type: :model do
       }
 
       before(:each) do
-        EmploymentReport.delete_all # not sure why this is necessary (maybe database cleaner has a bug?)
         reports
       end
 
