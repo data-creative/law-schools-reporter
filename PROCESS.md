@@ -191,6 +191,19 @@ Create local databases:
 bundle exec rake db:create
 ```
 
+## Builds
+
+Add a file called `.travis.yml` and paste in contents like the following:
+
+    language: ruby
+    rvm:
+      - 2.2.5
+    services:
+      - postgresql
+    script:
+      - bin/rake db:setup RAILS_ENV=test
+      - bin/rake
+
 ## Domain-specific Development
 
 ```shell
