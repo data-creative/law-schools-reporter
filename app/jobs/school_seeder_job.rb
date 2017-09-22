@@ -1,29 +1,45 @@
-require "selenium-webdriver"
-
-class MyDriver < Selenium::WebDriver::Firefox::Marionette::Driver
-  def quit
-    super
-  rescue Selenium::WebDriver::Error::UnknownError
-    binding.pry
-  end
-end
+require "nokogiri"
 
 class SchoolSeederJob < ApplicationJob
   queue_as :default
 
-  SCHOOLS_PAGE = "https://www.americanbar.org/groups/legal_education/resources/aba_approved_law_schools/official-guide-to-aba-approved-law-schools.html"
+  attr_reader :html
+
+  def initialize(options = {})
+    @html = options[:html]
+  end
 
   def perform(options = {})
-    source = options[:source] || SCHOOLS_PAGE
+    links.each do |link|
+      url = link.attributes["href"].value
 
-    driver = MyDriver.new
-    driver.get(source)
-    puts driver.title
-    tables = driver.find_elements(tag_name: "table")
-    puts "FOUND #{tables.count} TABLES"
+      #name = link.content
+      #year = link.content
 
-
+      puts " -- #{url}"
+      #school = {url: url, name: name, year: year}
+    end
   end
+
+  def document
+    @document ||= Nokogiri::HTML(html)
+  end
+
+  def tables
+    @tables ||= document.css("table")
+  end
+
+  def table
+    @table ||= tables.find{ |table| table.content.include?("AAKRON") && table.content.include?("YALE") }
+  end
+
+  def links
+    @links ||= table.css('a') #.select{|link| link.content}
+  end
+
+  #def parse_link_text(link)
+  #  binding.pry
+  #end
 
   #def parse_table(html)
   #  #code
