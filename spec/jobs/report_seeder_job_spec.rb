@@ -1,18 +1,20 @@
 require 'rails_helper'
 
+# this test is a mess. consider using factories, small mock csv files, and using a database-cleaning strategy.
+
 RSpec.describe ReportSeederJob, type: :job do
   #let(:years){ (2012..2017).to_a }
-  let(:years){ (2016..2017).to_a }
-  let(:batches){
-    {
-      "2011" => 200, "2012" => 197, "2013" => 216, "2014" => 203, "2015" => 203,
-      "2016" => 208, "2017" => 223
-    }
-  }
+  let(:years){ [2012, 2016, 2017].to_a }
+  let(:batches){ {"2011" => 200, "2012" => 197, "2013" => 216, "2014" => 203, "2015" => 203, "2016" => 208, "2017" => 223} }
   let(:batch_sizes){ years.map{|year| batches[year.to_s] } }
 
   before(:all) do
-    described_class.new.perform(years: (2016..2017).to_a)
+    School.delete_all
+    create(:school, long_name: "AKRON, UNIVERSITY OF")
+    create(:school, uuid: 168, name: "CARDOZO")
+
+    EmploymentReport.delete_all
+    described_class.new.perform(years: [2012, 2016, 2017].to_a)
   end
 
   after(:all) do
@@ -33,6 +35,7 @@ RSpec.describe ReportSeederJob, type: :job do
 
   describe "report" do
     let(:report){ EmploymentReport.where(year: 2016, school_name: "AKRON, UNIVERSITY OF").first }
+    let(:matchable_report){ EmploymentReport.where(school_name: "YESHIVA UNIVERSITY").first }
 
     it "should persist class size" do
       expect(report.total_grads.to_i).to eql(142)
@@ -67,6 +70,12 @@ RSpec.describe ReportSeederJob, type: :job do
         {"label"=>"Employed in Foreign Countries", "location"=>"Foreign Countries", "count"=>0}
       ]
       expect(report.employment_locations).to eql(expected_locations)
+    end
+
+    it "should identify a school matching the report's school_name, if possible" do
+      [report, matchable_report].each do |rpt|
+        expect(rpt.school_uuid.blank?).to eql(false)
+      end
     end
   end
 end

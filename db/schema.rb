@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20170923030805) do
   enable_extension "plpgsql"
 
   create_table "employment_reports", force: :cascade do |t|
+    t.integer "school_uuid"
     t.string "school_name", null: false
     t.integer "year", null: false
     t.integer "total_grads"
@@ -27,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170923030805) do
     t.datetime "updated_at", null: false
     t.index ["school_name", "year"], name: "index_employment_reports_on_school_name_and_year", unique: true
     t.index ["school_name"], name: "index_employment_reports_on_school_name"
+    t.index ["school_uuid"], name: "index_employment_reports_on_school_uuid"
     t.index ["year"], name: "index_employment_reports_on_year"
   end
 

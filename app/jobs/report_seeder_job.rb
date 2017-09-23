@@ -32,6 +32,11 @@ class ReportSeederJob < ApplicationJob
         rescue UnexpectedNullInteger => e
           log("UNEXPECTED NULL VALUE FOR #{report.school_name.upcase} in #{year}")
         end
+
+        matching_school = School.matches_name(report.school_name)
+        if matching_school
+          report.update_attributes(school_uuid: matching_school.uuid)
+        end
       end
     end
   end
