@@ -32,13 +32,14 @@ ActiveRecord::Schema.define(version: 20170923030805) do
 
   create_table "schools", force: :cascade do |t|
     t.integer "uuid", null: false
-    t.string "long_name"
+    t.string "long_name", null: false
     t.string "name", null: false
     t.integer "year_founded"
     t.string "url", null: false
     t.string "reports_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["long_name"], name: "index_schools_on_long_name", unique: true
     t.index ["name"], name: "index_schools_on_name", unique: true
     t.index ["url"], name: "index_schools_on_url", unique: true
     t.index ["uuid"], name: "index_schools_on_uuid", unique: true

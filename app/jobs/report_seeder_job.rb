@@ -11,7 +11,7 @@ class ReportSeederJob < ApplicationJob
     years.each do |year|
       rows = csv_file(year)
 
-      log(" ... #{year}: #{rows.count} ROWS")
+      log("  + #{year}: #{rows.count} ROWS")
 
       rows.each do |row|
         parsed_row = ParsedRow.new(year: year, row: row)

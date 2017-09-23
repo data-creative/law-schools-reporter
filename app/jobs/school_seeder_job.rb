@@ -7,6 +7,7 @@ class SchoolSeederJob < ApplicationJob
     announce("SEEDING SCHOOLS (#{csv_file.count})")
 
     csv_file.each do |row|
+      log("  + #{row["name"]} (#{row["year_founded"]})")
       school = School.where(uuid: row["uuid"]).first_or_initialize
       school.update_attributes({
         long_name: row["long_name"],
