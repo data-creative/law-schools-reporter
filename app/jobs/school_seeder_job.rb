@@ -28,7 +28,7 @@ class SchoolSeederJob < ApplicationJob
   end
 
   def schools_table
-    @table ||= tables.find{ |table| table.content.include?("AAKRON") && table.content.include?("YALE") }
+    @schools_table ||= tables.find{ |table| table.content.include?("AAKRON") && table.content.include?("YALE") }
   end
 
   def links
