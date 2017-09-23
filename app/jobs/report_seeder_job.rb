@@ -6,9 +6,7 @@ class ReportSeederJob < ApplicationJob
   def perform(options = {})
     years = options[:years] || (2012..2017).to_a
 
-    puts "-------------------------------"
-    puts "SEEDING EMPLOYMENT REPORTS"
-    puts "-------------------------------"
+    announce("SEEDING EMPLOYMENT REPORTS")
 
     years.each do |year|
       csv_file_path = Rails.root.join("db/seeds/batch_employment_reports/#{year}.csv")

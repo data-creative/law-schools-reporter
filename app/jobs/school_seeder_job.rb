@@ -4,6 +4,8 @@ class SchoolSeederJob < ApplicationJob
   queue_as :default
 
   def perform
+    announce("SEEDING SCHOOLS (#{csv_file.count})")
+
     csv_file.each do |row|
       school = School.where(uuid: row["uuid"]).first_or_initialize
       school.update_attributes({
