@@ -12,7 +12,7 @@ class ReportSeederJob < ApplicationJob
       csv_file_path = Rails.root.join("db/seeds/batch_employment_reports/#{year}.csv")
       csv_file = CSV.read(csv_file_path, headers: true)
       rows = csv_file.select{|row| !row["SchoolName"].blank? || !row["university"].blank?} # exclude three empty rows at bottom of 2013 file
-      puts " ... #{year}: #{rows.count} ROWS"
+      log(" ... #{year}: #{rows.count} ROWS")
 
       rows.each do |row|
         parsed_row = ParsedRow.new(year: year, row: row)
@@ -31,7 +31,7 @@ class ReportSeederJob < ApplicationJob
             employment_locations: parsed_row.employment_locations
           })
         rescue UnexpectedNullInteger => e
-          puts "UNEXPECTED NULL VALUE FOR #{report.school_name.upcase} in #{year}"
+          log("UNEXPECTED NULL VALUE FOR #{report.school_name.upcase} in #{year}")
         end
       end
     end
