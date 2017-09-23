@@ -9,7 +9,7 @@ class SchoolSeederJob < ApplicationJob
     @html = options[:html]
   end
 
-  def perform(options = {})
+  def perform
     links.each do |link|
       url = link.attributes["href"].value
       name, year = self.class.parse_link_content(link.content)
@@ -37,7 +37,6 @@ class SchoolSeederJob < ApplicationJob
 
   # @param [String] text like "AKRON (1961)" and various edge-cases (see specs)
   def self.parse_link_content(content)
-    #puts content
     name = content[0, content.index(content.split("(").last) -1 ].strip.upcase # use everything before the last paren begins
     year = content.split("(").last.remove(")").remove("*").strip.last(4).to_i
     return name, year
