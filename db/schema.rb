@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919025834) do
+ActiveRecord::Schema.define(version: 20170923020850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,17 @@ ActiveRecord::Schema.define(version: 20170919025834) do
     t.index ["school_name", "year"], name: "index_employment_reports_on_school_name_and_year", unique: true
     t.index ["school_name"], name: "index_employment_reports_on_school_name"
     t.index ["year"], name: "index_employment_reports_on_year"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "url", null: false
+    t.string "name", null: false
+    t.integer "year", null: false
+    t.integer "uuid"
+    t.text "alt_names"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["url"], name: "index_schools_on_url", unique: true
   end
 
 end

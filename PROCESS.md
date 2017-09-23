@@ -191,15 +191,28 @@ Create local databases:
 bundle exec rake db:create
 ```
 
+## Builds
+
+Add a file called `.travis.yml` and paste in contents like the following:
+
+    language: ruby
+    rvm:
+      - 2.2.5
+    services:
+      - postgresql
+    script:
+      - bin/rake db:setup RAILS_ENV=test
+      - bin/rake
+
 ## Domain-specific Development
 
 ```shell
-# rails g model advertiser name:string:uniq description:text url:string
-# rails g model ad advertiser:references title:string content:text url:string image_url:string
+# rails g model school uuid:integer:uniq short_name:string:uniq name:string alt_name:string year_founded:integer url:string reports_index_url:string
 
-rails g model school uuid:integer:uniq short_name:string:uniq name:string alt_name:string year_founded:integer url:string reports_index_url:string
+--->> rails g model school url:string:uniq name:string year:integer uuid:integer alt_names:text
 
 rails g model employment_report school_name:string year:integer total_grads:integer findings:text
+
 ```
 
 ```shell

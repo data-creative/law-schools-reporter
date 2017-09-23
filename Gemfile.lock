@@ -179,6 +179,7 @@ PLATFORMS
 DEPENDENCIES
   capybara (~> 2.13)
   factory_girl_rails
+  nokogiri
   pg (~> 0.18)
   pry
   puma (~> 3.7)
