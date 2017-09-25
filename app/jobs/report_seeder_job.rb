@@ -33,10 +33,8 @@ class ReportSeederJob < ApplicationJob
           log("UNEXPECTED NULL VALUE FOR #{report.school_name.upcase} in #{year}")
         end
 
-        matching_school = School.matches_name(report.school_name)
-        if matching_school
-          report.update_attributes(school_uuid: matching_school.uuid)
-        end
+        school = School.find_by_names(report.school_name)
+        report.update_attributes(school_uuid: school.try(:uuid))
       end
     end
   end
