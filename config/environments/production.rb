@@ -31,7 +31,7 @@ Rails.application.configure do
   config.assets.compile = false
 
   # Tell Heroku to stop trying to use turbolinks.
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
