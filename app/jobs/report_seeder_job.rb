@@ -39,8 +39,12 @@ class ReportSeederJob < ApplicationJob
     end
   end
 
+  def csv_dir
+    Rails.root.join("db/seeds/batch_employment_reports")
+  end
+
   def csv_file_path(year)
-    Rails.root.join("db/seeds/batch_employment_reports/#{year}.csv")
+    File.join(csv_dir, "#{year}.csv")
   end
 
   def csv_file(year)
