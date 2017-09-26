@@ -9,6 +9,6 @@
 
 
 
-# SchoolSeederJob.new.perform
+SchoolSeederJob.new.perform
 
 ReportSeederJob.new.perform

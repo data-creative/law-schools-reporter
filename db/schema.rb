@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919025834) do
+ActiveRecord::Schema.define(version: 20170923030805) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "employment_reports", force: :cascade do |t|
+    t.integer "school_uuid"
     t.string "school_name", null: false
     t.integer "year", null: false
     t.integer "total_grads"
@@ -27,7 +28,23 @@ ActiveRecord::Schema.define(version: 20170919025834) do
     t.datetime "updated_at", null: false
     t.index ["school_name", "year"], name: "index_employment_reports_on_school_name_and_year", unique: true
     t.index ["school_name"], name: "index_employment_reports_on_school_name"
+    t.index ["school_uuid"], name: "index_employment_reports_on_school_uuid"
     t.index ["year"], name: "index_employment_reports_on_year"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.integer "uuid", null: false
+    t.string "long_name", null: false
+    t.string "name", null: false
+    t.integer "year_founded"
+    t.string "url", null: false
+    t.string "reports_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["long_name"], name: "index_schools_on_long_name", unique: true
+    t.index ["name"], name: "index_schools_on_name", unique: true
+    t.index ["url"], name: "index_schools_on_url", unique: true
+    t.index ["uuid"], name: "index_schools_on_uuid", unique: true
   end
 
 end

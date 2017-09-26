@@ -1,6 +1,8 @@
 FactoryGirl.define do
   # consider providing a more thorough factory/trait which includes all counts present
+  # consider providing a trait which includes a school_uuid and matching school factory
   factory :employment_report do
+    school_uuid nil
     sequence(:school_name){|n| "MY LAW SCHOOL #{n}" }
     year 2016
     total_grads nil
