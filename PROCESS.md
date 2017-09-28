@@ -209,3 +209,9 @@ rails g job school_seeder
 ```shell
 heroku apps:create law-school-reporter
 ```
+
+## API Development
+
+```shell
+rails g scaffold_controller api/v1/school # amazing
+```
