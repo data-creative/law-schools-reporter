@@ -1,1 +1,10 @@
-<p><%= @message %></p>
+<h1>Law School Reporter API v1.0</h1>
+
+<h2>Endpoints</h2>
+
+<h3>Schools</h3>
+
+<ul>
+  <li><%= link_to "List", api_v1_schools_path %></li>
+  <li><%= link_to "Show (refresh to suffle)", api_v1_school_path(uuid: @random_school_uuid) %></li>
+</ul>
