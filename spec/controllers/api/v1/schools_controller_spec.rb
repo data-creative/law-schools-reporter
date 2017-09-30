@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SchoolsController, type: :controller do
-  let(:valid_session) { }
+  let(:valid_session){ {} }
 
   describe "GET #index" do
     it "returns a success response" do
