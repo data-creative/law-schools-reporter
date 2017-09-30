@@ -9,7 +9,7 @@ class Api::V1::SchoolsController < ApplicationController
   # GET /api/v1/schools/1
   # GET /api/v1/schools/1.json
   def show
-    @school = School.find(params[:id])
+    @school = School.find_by_uuid(params[:uuid])
   end
 
 end

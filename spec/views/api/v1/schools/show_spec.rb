@@ -9,7 +9,8 @@ RSpec.describe "api/v1/schools/show", type: :view do
 
   let(:response){ JSON.parse(rendered) }
 
-  it "renders a school" do
+  it "renders the requested school" do
     expect(response.keys).to match_array(["uuid", "year_founded", "long_name", "name", "url", "reports_url"]) # , "report_years"
+    expect(response["uuid"]).to eql(@school.uuid)
   end
 end

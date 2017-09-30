@@ -14,7 +14,7 @@ RSpec.describe Api::V1::SchoolsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       school = create(:school)
-      get :show, params: {id: school.to_param, format: "json"}, session: valid_session
+      get :show, params: {uuid: school.to_param, format: "json"}, session: valid_session
       expect(response).to be_success
     end
   end
