@@ -206,6 +206,20 @@ rails g job school_seeder
 
 ## Deploying
 
+Create a new application server (one-time only, otherwise gain access to this existing server):
+
 ```shell
 heroku apps:create law-school-reporter
+```
+
+Deploy:
+
+```shell
+git push heroku master # or git push heroku mybranch:master
+```
+
+## API Development
+
+```shell
+rails g scaffold_controller api/v1/school # meh
 ```

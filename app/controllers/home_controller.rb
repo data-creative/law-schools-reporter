@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @message = "Law School Reporter - API 1.0"
+    random_uuid = School.pluck(:uuid).sample
+    @random_school = School.find_by_uuid(random_uuid)
   end
 end
