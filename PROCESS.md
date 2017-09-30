@@ -203,3 +203,9 @@ rails g model employment_report school_name:string year:integer total_grads:inte
 rails g job report_seeder
 rails g job school_seeder
 ```
+
+## Deploying
+
+```shell
+heroku apps:create law-school-reporter
+```
