@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  #namespace :api do
-  #  namespace :v1, defaults: {format: :json} do
-  #    resources :schools, only: [:list, :show]
-  #  end
-  #end
+  namespace :api do
+    namespace :v1, defaults: {format: :json} do
+      resources :schools, only: [:index, :show]
+    end
+  end
 end
