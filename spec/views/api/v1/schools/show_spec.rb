@@ -9,12 +9,7 @@ RSpec.describe "api/v1/schools/show", type: :view do
 
   let(:response){ JSON.parse(rendered) }
 
-  it "renders the given school" do
-    expect(response.keys).to match_array([
-      "id", "created_at", "updated_at", # not the most important to be included, but why not?
-      "uuid", "year_founded",
-      "long_name", "name",
-      "url", "reports_url"
-    ]) # , "report_years"
+  it "renders a school" do
+    expect(response.keys).to match_array(["uuid", "year_founded", "long_name", "name", "url", "reports_url"]) # , "report_years"
   end
 end
