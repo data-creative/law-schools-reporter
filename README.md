@@ -1,48 +1,15 @@
 # Law Schools Reporter
 
-## Installation
+## API
 
-Install Ruby 2.2.5, probably using rbenv.
+### Schools
 
-Install PostgreSQL, probably using homebrew.
+  + GET `api/v1/schools`
+  + GET `api/v1/schools/:uuid`
 
-Download the source code:
+### Employment Reports
 
-```sh
-git clone git@github.com:data-creative/law-schools-reporter.git
-cd law-schools-reporter/
-bin/setup # installs package dependencies and preps the database
-```
-
-## Usage
-
-Seed the database with schools and employment data.
-
-```sh
-bundle exec rake db:seed
-```
-
-## Developing
-
-Serve locally:
-
-```shell
-rails s
-```
-
-Run tests:
-
-```shell
-bundle exec rspec spec/
-```
-
-## Deploying
-
-Gain access to the `law-school-reporter` heroku application. Then deploy:
-
-```sh
-git push heroku master # or ...
-git push heroku mybranch:master
-```
+  + GET `api/v1/schools/:uuid/employment_reports`
+  + GET `api/v1/employment_reports/search?years[]=2016&years[]=2017&schools[]=1&schools[]=2`
 
 ## [License](/LICENSE.md)
