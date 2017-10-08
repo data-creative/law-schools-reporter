@@ -1,6 +1,6 @@
 # Law Schools Reporter
 
-## API
+## API Endpoints
 
 ### Schools
 
@@ -10,6 +10,6 @@
 ### Employment Reports
 
   + GET `api/v1/schools/:uuid/employment_reports`
-  + GET `api/v1/employment_reports/search?years[]=2016&years[]=2017&schools[]=1&schools[]=2`
+  + GET `api/v1/reports/search?years[]=2016&years[]=2017&schools[]=25&schools[]=36`
 
 ## [License](/LICENSE.md)

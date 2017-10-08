@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1, defaults: {format: :json} do
       resources :schools, param: :uuid, only: [:index, :show]
+
+      get '/reports/search', to: 'employment_reports#search'
     end
   end
 end

@@ -1,16 +1,20 @@
 class Api::V1::EmploymentReportsController < ApplicationController
 
-  # GET /api/v1/employment_reports/search
-  # GET /api/v1/employment_reports/search.json
+  # GET /api/v1/reports
+  # GET /api/v1/reports.json
   #
-  # GET /api/v1/employment_reports/search?years[]=2016&years[]=2017&schools[]=96&schools[]=132
+  # GET /api/v1/reports?years[]=2016&years[]=2017&schools[]=96&schools[]=132
   def search
-    @reports = EmploymentReport.where(search_params.to_h)
+    @reports = EmploymentReport.where(year: years, school_uuid: school_uuids)
   end
 
   private
 
-  def search_params
-    params.permit([:years, :schools])
+  def school_uuids
+    params.require(:schools)
+  end
+
+  def years
+    params.require(:years)
   end
 end
