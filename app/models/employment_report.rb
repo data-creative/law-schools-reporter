@@ -9,4 +9,12 @@ class EmploymentReport < ApplicationRecord
   def self.with_grads
     where("total_grads <> 0")
   end
+
+  def reported_school_name
+    school_name
+  end
+
+  #def real_school_name
+  #  school.try(:name)
+  #end
 end
