@@ -8,7 +8,7 @@ RSpec.describe "api/v1/schools/index", type: :view do
   end
 
   it "renders a list of schools" do
-    expect(parsed_response.count).to eql(@schools.count)
-    expect(parsed_response.first.keys).to match_array(["uuid", "year_founded", "long_name", "name", "url", "reports_url"]) # , "report_years"
+    expect(parsed_view.count).to eql(@schools.count)
+    expect(parsed_view.first.keys).to match_array(["uuid", "year_founded", "long_name", "name", "url", "reports_url"]) # , "report_years"
   end
 end

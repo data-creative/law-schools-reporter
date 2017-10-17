@@ -7,6 +7,8 @@ RSpec.describe ReportSeederJob, type: :job do
     let(:years) { mock_batches.map{|k,_| k.to_i} }
 
     before(:all) do
+      DatabaseCleaner.clean_with(:truncation) # avoid dirty database errors.
+
       RSpec::Mocks.with_temporary_scope do # use this technique to allow stubbing within a before(:all) hook
         create(:school, long_name: "AKRON, UNIVERSITY OF") # to be matched with report via long_name
         create(:school, name: "BOSTON COLLEGE") # to be matched with report via name

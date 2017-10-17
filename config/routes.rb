@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1, defaults: {format: :json} do
       resources :schools, param: :uuid, only: [:index, :show]
+
+      resources :employment_reports, only: [:index]
     end
   end
 end
