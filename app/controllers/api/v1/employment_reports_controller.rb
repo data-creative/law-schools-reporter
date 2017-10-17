@@ -5,11 +5,9 @@ class Api::V1::EmploymentReportsController < ApplicationController
   #
   # GET /api/v1/employment_reports?years[]=2016&years[]=2017&schools[]=96&schools[]=132
   def index
-    if params[:years] && params[:schools]
-      @reports = EmploymentReport.where(year: years, school_uuid: school_uuids)
-    else
-      @reports = EmploymentReport.all
-    end
+    @reports = EmploymentReport.all
+    @reports = @reports.where(year: years) if params[:years]
+    @reports = @reports.where(school_uuid: school_uuids) if params[:schools]
   end
 
   private
