@@ -1,5 +1,7 @@
 # Law Schools Reporter
 
+Use the web service live in production at https://law-school-reporter.herokuapp.com/.
+
 ## API Endpoints
 
 ### Schools

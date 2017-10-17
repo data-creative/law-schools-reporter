@@ -1,18 +1,25 @@
 <h1>Law School Reporter API v1.0</h1>
 
+<% if @random_school %>
+
 <h2>Endpoints</h2>
 
 <h3>Schools</h3>
 
-<% if @random_school %>
+<ul>
+  <li><%= link_to "GET api/v1/schools", api_v1_schools_path %></li>
+  <li><%= link_to "GET api/v1/schools/#{@random_school.uuid}", api_v1_school_path(@random_school) %> (lookup school by :uuid) </li>
+</ul>
+
+<h3>Employment Reports</h3>
 
 <ul>
-  <li><%= link_to "List", api_v1_schools_path %></li>
-  <li><%= link_to "Show", api_v1_school_path(@random_school) %> (refresh this page to suffle)</li>
+  <li><%= link_to "GET api/v1/employment_reports", api_v1_employment_reports_path %></li>
+  <li><%= link_to "GET api/v1/employment_reports?years[]=2016&years[]=2017&schools[]=25&schools[]=36", api_v1_employment_reports_path(years: [2016, 2017], schools: [25, 36]) %></li>
 </ul>
 
 <% else %>
 
-<p>Admin, please seed the database with some schools!</p>
+<p>Admin, please seed the database!</p>
 
 <% end %>
