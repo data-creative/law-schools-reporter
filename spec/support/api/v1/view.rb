@@ -1,5 +1,5 @@
 module Api::V1::View
-  def parsed_response
+  def parsed_view
     JSON.parse(rendered)
   end
 end

@@ -9,7 +9,7 @@
 
 ### Employment Reports
 
-  + GET `api/v1/schools/:uuid/employment_reports`
-  + GET `api/v1/reports/search?years[]=2016&years[]=2017&schools[]=25&schools[]=36`
+  + GET `api/v1/employment_reports`
+  + GET `api/v1/employment_reports?years[]=2016&years[]=2017&schools[]=25&schools[]=36`
 
 ## [License](/LICENSE.md)
