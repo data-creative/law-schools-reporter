@@ -46,9 +46,20 @@ bundle exec rspec spec/
 
 ## Deploying
 
-Gain access to the `law-school-reporter` heroku application. Then deploy:
+Gain access to the `law-school-reporter` heroku application.
+
+Then deploy:
 
 ```sh
-git push heroku master # or ...
+git checkout master
+git pull origin master
+git push heroku master
+```
+
+Or deploy from a branch:
+
+```sh
+git checkout mybranch
+git pull origin mybranch
 git push heroku mybranch:master
 ```
