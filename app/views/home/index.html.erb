@@ -2,9 +2,11 @@
 
 <% if @random_school %>
 
-<h2>Endpoints</h2>
+<h2>Resources</h2>
 
 <h3>Schools</h3>
+
+<p>Example Requests:</p>
 
 <ul>
   <li><%= link_to "GET api/v1/schools", api_v1_schools_path %></li>
@@ -12,6 +14,8 @@
 </ul>
 
 <h3>Employment Reports</h3>
+
+<p>Example Requests:</p>
 
 <ul>
   <li><%= link_to "GET api/v1/employment_reports", api_v1_employment_reports_path %></li>
@@ -23,3 +27,10 @@
 <p>Admin, please seed the database!</p>
 
 <% end %>
+
+<hr>
+
+<p>
+  <a href="https://law-school-reporter.herokuapp.com/">view</a> |
+  <a href="https://github.com/data-creative/law-schools-reporter">source / docs</a>
+</p>
