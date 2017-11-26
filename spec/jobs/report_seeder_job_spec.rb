@@ -15,7 +15,7 @@ RSpec.describe ReportSeederJob, type: :job do
         create(:school, uuid: 168, name: "CARDOZO") # to be matched with report via lookup
 
         job = described_class.new
-        allow(job).to receive(:csv_dir).and_return(Rails.root.join("spec/mocks/batch_employment_reports")) # use smaller files to reduce test time
+        allow(job).to receive(:csv_dir).and_return(Rails.root.join("spec/mocks/aba_employment_reports")) # use smaller files to reduce test time
         job.perform(years: [2012, 2016, 2017])
       end
     end

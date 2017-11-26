@@ -135,7 +135,7 @@ It is also equal to the sum of the following employment types:
 
 ### Investigation and Reconciliation of Headers
 
-See results in `db/seeds/batch_employment_reports/header_reconciliation.csv` and optionally make use of that file during the parsing process. Moving forward for now with a somewhat more conditional but still sufficient approach.
+See results in `db/seeds/aba_employment_reports/header_reconciliation.csv` and optionally make use of that file during the parsing process. Moving forward for now with a somewhat more conditional but still sufficient approach.
 
 ### Investigation of Graduate-less Reports
 
