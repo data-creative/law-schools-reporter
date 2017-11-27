@@ -14,4 +14,12 @@ class UsnewsRankings::ParttimeRankingsScraper < ApplicationJob
   def first_page_source
     @first_page_source ||= Nokogiri::HTML(open(FIRST_PAGE_URL))
   end
+
+  def first_page_title
+    @first_page_title ||= first_page_source.title
+  end
+
+  def rankings_year
+    first_page_title.scan(/\d+/).first.to_i
+  end
 end
