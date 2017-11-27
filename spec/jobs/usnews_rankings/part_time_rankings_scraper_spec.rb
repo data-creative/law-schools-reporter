@@ -31,6 +31,23 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
       it "should store results in a single CSV file per year" do
         expect(File.exist?(job.results_csv_path)).to eql(true)
       end
+
+      describe "annual results CSV" do
+        let(:expected_headers){[
+          "year", "name", "city", "rank", "score", "peer_score",
+          "lsat_25th", "lsat_75th", "acceptance_rate"
+        ]}
+        let(:headers){ [] }
+        let(:rows){ [] }
+
+        it "should have a standard header row" do
+          expect(headers).to match_array(expected_headers)
+        end
+
+        it "should have a row per school" do
+          expect(rows.count).to eql(25)
+        end
+      end
     end
   end
 
