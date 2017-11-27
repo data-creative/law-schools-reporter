@@ -8,12 +8,12 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
     let(:mock_first_page_source){ File.open(mock_first_page_path){|f| Nokogiri::HTML(f) } }
 
     let(:year){ 2017 }
-    let(:mock_results_csv_path){ Rails.root.join("spec/mocks/usnews_rankings/part_time", "#{year}.csv") }
+    let(:mock_csv_file_path){ Rails.root.join("spec/mocks/usnews_rankings/part_time", "#{year}.csv") }
 
     before(:each) do
-      FileUtils.rm_f(mock_results_csv_path) # clean-up before later testing existence of this file
+      FileUtils.rm_f(mock_csv_file_path) # clean-up before later testing existence of this file
       allow(job).to receive(:first_page_source).and_return(mock_first_page_source)
-      allow(job).to receive(:results_csv_path).and_return(mock_results_csv_path)
+      allow(job).to receive(:csv_file_path).and_return(mock_csv_file_path)
       job.perform
     end
 
@@ -29,19 +29,16 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
 
     describe "writing" do
       it "should store results in a single CSV file per year" do
-        expect(File.exist?(job.results_csv_path)).to eql(true)
+        expect(File.exist?(job.csv_file_path)).to eql(true)
       end
 
       describe "annual results CSV" do
-        let(:expected_headers){[
-          "year", "name", "city", "rank", "score", "peer_score",
-          "lsat_25th", "lsat_75th", "acceptance_rate"
-        ]}
-        let(:headers){ [] }
+        let(:csv_file){ CSV.read(job.csv_file_path, headers: true) }
+        let(:headers){ csv_file.headers }
         let(:rows){ [] }
 
         it "should have a standard header row" do
-          expect(headers).to match_array(expected_headers)
+          expect(headers).to match_array(described_class::CSV_HEADERS)
         end
 
         it "should have a row per school" do
