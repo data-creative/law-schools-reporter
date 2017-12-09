@@ -44,8 +44,8 @@ class UsnewsRankings::PartTimeRankingsScraper < ApplicationJob
           year: rankings_year,
           school_name: name,
           school_city: element.at_css(".location").try(:text).try(:strip), # rutgers doesn't have a location.
-          rank: element.at_css(".rankscore-bronze").text.strip.gsub("#",""),
-          tie: false,
+          rank: element.at_css(".rankscore-bronze").text.strip.gsub("#","").gsub("Tie",""),
+          tie: element.at_css(".rankscore-bronze").text.include?("Tie"),
           score: element.at_css(".c_fin_tot_part_time_display").text.strip.to_i,
           peer_score: element.at_css(".c_pt_avg_acad_rep_score").text.strip.to_f,
           lsat_25th: element.at_css(".pt_lsat_combined").text.strip.split("-").first,
