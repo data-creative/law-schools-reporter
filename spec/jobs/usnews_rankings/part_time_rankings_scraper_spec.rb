@@ -12,21 +12,18 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
 
     before(:each) do
       FileUtils.rm_f(mock_csv_file_path) # clean-up before later testing existence of this file
-
-      #allow(job).to receive(:first_page_source).and_return(mock_first_page_source)
       allow_any_instance_of(described_class::RankingsPage).to receive(:source).and_return(mock_first_page_source)
-
       allow(job).to receive(:csv_file_path).and_return(mock_csv_file_path)
       job.perform
     end
 
     describe "writing CSV" do
       it "should store results in a single CSV file per year" do
-        expect(File.exist?(job.csv_file_path(year))).to eql(true)
+        expect(File.exist?(mock_csv_file_path)).to eql(true)
       end
 
       describe "annual results CSV" do
-        let(:csv_file){ CSV.read(job.csv_file_path(year), headers: true) }
+        let(:csv_file){ CSV.read(mock_csv_file_path, headers: true) }
 
         it "should have a standard header row" do
           expect(csv_file.headers).to match_array(described_class::CSV_HEADERS)

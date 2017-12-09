@@ -19,3 +19,7 @@
 ### Ruby
 
   + [Ruby Float Division](https://www.codecademy.com/en/forum_questions/50fe886f68fc44056f00626c)
+
+### RSpec
+
+  + [Stubbing for any instance of a class](https://relishapp.com/rspec/rspec-mocks/v/2-14/docs/message-expectations/allow-a-message-on-any-instance-of-a-class)
