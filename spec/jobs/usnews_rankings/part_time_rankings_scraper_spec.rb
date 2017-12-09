@@ -44,13 +44,23 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
         end
 
         it "should have a row per school" do
-          expect(csv_file.count > 25).to eql(true)
+          expect(csv_file.count).to eql(25) # greater than 25 to account for ties, which will all be included
         end
 
-        #it "should contain the expected rankings" do
-        #  binding.pry
-        #  expect(rows.first).to eql(25)
-        #end
+        it "should contain the expected rankings" do
+          expect(csv_file.entries.first.to_h).to eql({
+            "year"=>"2017",
+            "name"=>"Georgetown University",
+            "city"=>"Washington, DC",
+            "rank"=>"1",
+            "tie"=>"false",
+            "score"=>"100",
+            "peer_score"=>"4.2",
+            "lsat_25th"=>"157",
+            "lsat_75th"=>"168",
+            "acceptance_rate"=>"0.058"
+          })
+        end
       end
     end
   end

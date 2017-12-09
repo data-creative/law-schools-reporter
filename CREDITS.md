@@ -15,3 +15,7 @@
 ### Tools
 
   + [HTML Formatter/Indenter](https://www.freeformatter.com/html-formatter.html)
+
+### Ruby
+
+  + [Ruby Float Division](https://www.codecademy.com/en/forum_questions/50fe886f68fc44056f00626c)
