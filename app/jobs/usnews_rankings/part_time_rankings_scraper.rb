@@ -5,72 +5,71 @@ require "csv"
 class UsnewsRankings::PartTimeRankingsScraper < ApplicationJob
   queue_as :default
 
-  FIRST_PAGE_URL = "https://www.usnews.com/best-graduate-schools/top-law-schools/part-time-law-rankings"
-
   CSV_HEADERS = ["year", "name", "city", "rank", "tie", "score", "peer_score", "lsat_25th", "lsat_75th", "acceptance_rate"]
 
   def perform
     announce("SCRAPING PART-TIME RANKINGS FROM USNEWS.COM")
 
-    CSV.open(csv_file_path, "w", :write_headers=> true, :headers => CSV_HEADERS) do |csv|
-      first_page_rankings_table_rows.each do |element|
+    page_number = 1
+    page = RankingsPage.new(page_number)
+    rankings_year = page.year
+
+    CSV.open(csv_file_path(rankings_year), "w", :write_headers=> true, :headers => CSV_HEADERS) do |csv|
+      page.table_rows.each do |element|
         ranking = AnnualRanking.new(rankings_year, element)
         csv << ranking.csv_row
       end
     end
   end
 
-  def first_page_source
-    @first_page_source ||= Nokogiri::HTML(open(FIRST_PAGE_URL))
+  def csv_file_path(year)
+    Rails.root.join("db/seeds/usnews_rankings/part_time", "#{year}.csv")
   end
 
-  def first_page_title
-    @first_page_title ||= first_page_source.title
-  end
-
-  def rankings_year
-    first_page_title.scan(/\d+/).first.to_i
-  end
-
-  def first_page_rankings_table
-    @first_page_rankings_table ||= first_page_source.at_css("table.ranking-data")
-  end
-
-  def first_page_rankings_table_body
-    first_page_rankings_table.at_css("tbody")
-  end
-
-  def first_page_rankings_table_rows
-    first_page_rankings_table_body.children.select{ |tr|
-      !tr.text.strip.blank? && !tr.text.include?("dblclick('rankingsEmbed')")
-    }
-  end
-
-  def csv_file_path
-    Rails.root.join("db/seeds/usnews_rankings/part_time", "#{rankings_year}.csv")
-  end
-
-  #def csv_file
-  #  @csv_file ||= CSV.read(csv_file_path, headers: true)
+  #def csv_file(year)
+  #  @csv_file ||= CSV.read(csv_file_path(year), headers: true)
   #end
 
   class RankingsPage
+    attr_reader :page_number
+
+    FIRST_PAGE_URL = "https://www.usnews.com/best-graduate-schools/top-law-schools/part-time-law-rankings"
+
+    # @param [Integer] page_number
+    def initialize(page_number)
+      @page_number = page_number
+    end
+
+    def url
+      page_number == 1 ? FIRST_PAGE_URL : "#{FIRST_PAGE_URL}/page+#{page_number}"
+    end
 
     def source
-      #code
+      @source ||= Nokogiri::HTML(open(url))
     end
 
     def title
-      #code
+      @title ||= source.title
     end
-  end
 
-  class RankingsTable
-    #code
-  end
+    # should extract the year from the page title
+    def year
+      @year ||= title.scan(/\d+/).first.to_i
+    end
 
-  class RankingsTableRow
-    #code
+    def table
+      @table ||= source.at_css("table.ranking-data")
+    end
+
+    def table_body
+      @table_body ||= table.at_css("tbody")
+    end
+
+    def table_rows
+      @table_rows ||= table_body.children.select{ |tr|
+        !tr.text.strip.blank? && !tr.text.include?("dblclick('rankingsEmbed')")
+      }
+    end
   end
 
   class AnnualRanking

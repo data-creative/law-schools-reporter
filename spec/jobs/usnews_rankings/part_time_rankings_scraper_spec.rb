@@ -12,32 +12,21 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
 
     before(:each) do
       FileUtils.rm_f(mock_csv_file_path) # clean-up before later testing existence of this file
-      allow(job).to receive(:first_page_source).and_return(mock_first_page_source)
+
+      #allow(job).to receive(:first_page_source).and_return(mock_first_page_source)
+      allow_any_instance_of(described_class::RankingsPage).to receive(:source).and_return(mock_first_page_source)
+
       allow(job).to receive(:csv_file_path).and_return(mock_csv_file_path)
       job.perform
     end
 
-    describe "reading HTML" do
-      it "should parse the first page source to find the rankings year" do
-        expect(job.rankings_year).to eql(year)
-      end
-
-      #it "should parse the first page source to find a table of rankings" do
-      #  expect(job.first_page_rankings.count).to eql(25)
-      #end
-
-      #it "should paginate through multiple hosted pages" do
-      #  expect(pages.count).to eql(2)
-      #end
-    end
-
     describe "writing CSV" do
       it "should store results in a single CSV file per year" do
-        expect(File.exist?(job.csv_file_path)).to eql(true)
+        expect(File.exist?(job.csv_file_path(year))).to eql(true)
       end
 
       describe "annual results CSV" do
-        let(:csv_file){ CSV.read(job.csv_file_path, headers: true) }
+        let(:csv_file){ CSV.read(job.csv_file_path(year), headers: true) }
 
         it "should have a standard header row" do
           expect(csv_file.headers).to match_array(described_class::CSV_HEADERS)
@@ -65,15 +54,15 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
     end
   end
 
-  describe "#rankings_year" do
-    let(:mock_first_page_title){ "Best Part-time Law Programs Ranked in 2025 blah blah | US News Rankings blah" }
-
-    before do
-      allow(job).to receive(:first_page_title).and_return(mock_first_page_title)
-    end
-
-    it "should extract the year from the page title" do
-      expect(job.rankings_year).to eql(2025)
-    end
-  end
+  #describe "#rankings_year" do
+  #  let(:mock_first_page_title){ "Best Part-time Law Programs Ranked in 2025 blah blah | US News Rankings blah" }
+#
+  #  before do
+  #    allow(job).to receive(:first_page_title).and_return(mock_first_page_title)
+  #  end
+#
+  #  it "should extract the year from the page title" do
+  #    expect(job.rankings_year).to eql(2025)
+  #  end
+  #end
 end
