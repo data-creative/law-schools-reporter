@@ -9,19 +9,75 @@ class UsnewsRankings::PartTimeRankingsScraper < ApplicationJob
 
   CSV_HEADERS = ["year", "name", "city", "rank", "tie", "score", "peer_score", "lsat_25th", "lsat_75th", "acceptance_rate"]
 
-  #class RankingsTable
-  #  def initialize(argument)
-  #    @argument = argument
-  #  end
+  def perform
+    announce("SCRAPING PART-TIME RANKINGS FROM USNEWS.COM")
+
+    CSV.open(csv_file_path, "w", :write_headers=> true, :headers => CSV_HEADERS) do |csv|
+      first_page_rankings_table_rows.each do |element|
+        ranking = AnnualRanking.new(rankings_year, element)
+        csv << ranking.csv_row
+      end
+    end
+  end
+
+  def first_page_source
+    @first_page_source ||= Nokogiri::HTML(open(FIRST_PAGE_URL))
+  end
+
+  def first_page_title
+    @first_page_title ||= first_page_source.title
+  end
+
+  def rankings_year
+    first_page_title.scan(/\d+/).first.to_i
+  end
+
+  def first_page_rankings_table
+    @first_page_rankings_table ||= first_page_source.at_css("table.ranking-data")
+  end
+
+  def first_page_rankings_table_body
+    first_page_rankings_table.at_css("tbody")
+  end
+
+  def first_page_rankings_table_rows
+    first_page_rankings_table_body.children.select{ |tr|
+      !tr.text.strip.blank? && !tr.text.include?("dblclick('rankingsEmbed')")
+    }
+  end
+
+  def csv_file_path
+    Rails.root.join("db/seeds/usnews_rankings/part_time", "#{rankings_year}.csv")
+  end
+
+  #def csv_file
+  #  @csv_file ||= CSV.read(csv_file_path, headers: true)
   #end
-#
-  #class RankingsRow
-  #  #code
-  #end
+
+  class RankingsPage
+
+    def source
+      #code
+    end
+
+    def title
+      #code
+    end
+  end
+
+  class RankingsTable
+    #code
+  end
+
+  class RankingsTableRow
+    #code
+  end
 
   class AnnualRanking
     attr_reader :year, :element
 
+    # @param [Integer] year
+    # @param [Nokogiri::XML::Element] a rankings table row ("tr") element
     def initialize(year, element)
       @year = year
       @element = element
@@ -75,64 +131,4 @@ class UsnewsRankings::PartTimeRankingsScraper < ApplicationJob
       [year, school_name, school_city, rank, tie, score, peer_score, lsat_25th, lsat_75th, acceptance_rate]
     end
   end
-
-  def perform
-    announce("SCRAPING PART-TIME RANKINGS FROM USNEWS.COM")
-
-    CSV.open(csv_file_path, "w", :write_headers=> true, :headers => CSV_HEADERS) do |csv|
-      first_page_rankings_table_rows.each do |element|
-        ranking = AnnualRanking.new(rankings_year, element)
-        csv << ranking.csv_row
-      end
-    end
-  end
-
-  def first_page_source
-    @first_page_source ||= Nokogiri::HTML(open(FIRST_PAGE_URL))
-  end
-
-  def first_page_title
-    @first_page_title ||= first_page_source.title
-  end
-
-  def rankings_year
-    first_page_title.scan(/\d+/).first.to_i
-  end
-
-  def first_page_rankings_table
-    @first_page_rankings_table ||= first_page_source.at_css("table.ranking-data")
-  end
-
-  def first_page_rankings_table_body
-    first_page_rankings_table.at_css("tbody")
-  end
-
-  def first_page_rankings_table_rows
-    first_page_rankings_table_body.children.select{ |tr|
-      !tr.text.strip.blank? && !tr.text.include?("dblclick('rankingsEmbed')")
-    }
-  end
-
-  # @param row [Nokogiri::XML::Element]
-  def table_row_children(row)
-    #code
-  end
-
-  #def first_page_rankings
-  #  #binding.pry
-  #  []
-  #end
-
-
-
-
-
-
-  def csv_file_path
-    Rails.root.join("db/seeds/usnews_rankings/part_time", "#{rankings_year}.csv")
-  end
-
-  #def csv_file
-  #  @csv_file ||= CSV.read(csv_file_path, headers: true)
-  #end
 end
