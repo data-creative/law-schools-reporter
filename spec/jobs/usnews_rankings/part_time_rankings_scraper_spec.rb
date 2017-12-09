@@ -17,33 +17,40 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
       job.perform
     end
 
-    describe "reading" do
+    describe "reading HTML" do
       it "should parse the first page source to find the rankings year" do
         expect(job.rankings_year).to eql(year)
       end
+
+      #it "should parse the first page source to find a table of rankings" do
+      #  expect(job.first_page_rankings.count).to eql(25)
+      #end
 
       #it "should paginate through multiple hosted pages" do
       #  expect(pages.count).to eql(2)
       #end
     end
 
-    describe "writing" do
+    describe "writing CSV" do
       it "should store results in a single CSV file per year" do
         expect(File.exist?(job.csv_file_path)).to eql(true)
       end
 
       describe "annual results CSV" do
         let(:csv_file){ CSV.read(job.csv_file_path, headers: true) }
-        let(:headers){ csv_file.headers }
-        let(:rows){ [] }
 
         it "should have a standard header row" do
-          expect(headers).to match_array(described_class::CSV_HEADERS)
+          expect(csv_file.headers).to match_array(described_class::CSV_HEADERS)
         end
 
         it "should have a row per school" do
-          expect(rows.count).to eql(25)
+          expect(csv_file.count > 25).to eql(true)
         end
+
+        #it "should contain the expected rankings" do
+        #  binding.pry
+        #  expect(rows.first).to eql(25)
+        #end
       end
     end
   end
