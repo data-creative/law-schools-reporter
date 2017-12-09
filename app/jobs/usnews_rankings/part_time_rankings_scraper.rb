@@ -19,54 +19,70 @@ class UsnewsRankings::PartTimeRankingsScraper < ApplicationJob
   #  #code
   #end
 
+  class AnnualRanking
+    attr_reader :year, :element
+
+    def initialize(year, element)
+      @year = year
+      @element = element
+    end
+
+    # converts weird dash character (#8212) to normal dash, then removes weird characters like <U+200B>
+    def school_name
+      name = element.at_css(".school-name").text.strip
+      name = name.chars.map{|char| char.ord == 8212 ? " - " : char}.select{|char| char.ascii_only? }.join
+    end
+
+    def school_city
+      element.at_css(".location").try(:text).try(:strip) # rutgers doesn't have a location
+    end
+
+    def rank
+      element.at_css(".rankscore-bronze").text.strip.gsub("#","").gsub("Tie","")
+    end
+
+    def tie
+      element.at_css(".rankscore-bronze").text.include?("Tie")
+    end
+
+    def score
+      element.at_css(".c_fin_tot_part_time_display").text.strip.to_i
+    end
+
+    def peer_score
+      element.at_css(".c_pt_avg_acad_rep_score").text.strip.to_f
+    end
+
+    def lsat_combined
+      element.at_css(".pt_lsat_combined").text.strip
+    end
+
+    def lsat_25th
+      lsat_combined.split("-").first
+    end
+
+    def lsat_75th
+      lsat_combined.split("-").last
+    end
+
+    # handles cases when converting to float before dividing produces the wrong output
+    # https://www.codecademy.com/en/forum_questions/50fe886f68fc44056f00626c
+    def acceptance_rate
+      (element.at_css(".v_pt_acceptance_rate").text.strip.gsub("%","").to_d / 100).to_f
+    end
+
+    def csv_row
+      [year, school_name, school_city, rank, tie, score, peer_score, lsat_25th, lsat_75th, acceptance_rate]
+    end
+  end
+
   def perform
     announce("SCRAPING PART-TIME RANKINGS FROM USNEWS.COM")
 
     CSV.open(csv_file_path, "w", :write_headers=> true, :headers => CSV_HEADERS) do |csv|
       first_page_rankings_table_rows.each do |element|
-        #binding.pry
-        #puts " +  #{row.text.strip.gsub("\n","")}"
-
-        name = element.at_css(".school-name").text.strip
-
-        #encoding_options = {
-        #  invalid: :replace, # Replace invalid byte sequences
-        #  undef: :replace, # Replace anything not defined in ASCII
-        #  replace: '', # Use a blank for those replacements
-        #  universal_newline: true # Always break lines with \n
-        #} # https://stackoverflow.com/a/9420531/670433
-        #name = name.encode(Encoding.find('ASCII'), encoding_options)
-
-        # convert weird dash character to normal dash, then remove weird characters like <U+200B>
-        name = name.chars.map{|char| char.ord == 8212 ? " - " : char}.select{|char| char.ascii_only? }.join
-
-        ranking = {
-          year: rankings_year,
-          school_name: name,
-          school_city: element.at_css(".location").try(:text).try(:strip), # rutgers doesn't have a location.
-          rank: element.at_css(".rankscore-bronze").text.strip.gsub("#","").gsub("Tie",""),
-          tie: element.at_css(".rankscore-bronze").text.include?("Tie"),
-          score: element.at_css(".c_fin_tot_part_time_display").text.strip.to_i,
-          peer_score: element.at_css(".c_pt_avg_acad_rep_score").text.strip.to_f,
-          lsat_25th: element.at_css(".pt_lsat_combined").text.strip.split("-").first,
-          lsat_75th: element.at_css(".pt_lsat_combined").text.strip.split("-").last,
-          acceptance_rate: (element.at_css(".v_pt_acceptance_rate").text.strip.gsub("%","").to_d / 100).to_f # converting to float before dividing produces wrong output
-        }
-
-        #pp ranking
-
-        csv << [
-          ranking[:year],
-          ranking[:school_name],
-          ranking[:school_city],
-          ranking[:rank],
-          ranking[:tie],
-          ranking[:score],
-          ranking[:peer_score],
-          ranking[:lsat_25th],
-          ranking[:lsat_75th],
-          ranking[:acceptance_rate]
-        ]
+        ranking = AnnualRanking.new(rankings_year, element)
+        csv << ranking.csv_row
       end
     end
   end
