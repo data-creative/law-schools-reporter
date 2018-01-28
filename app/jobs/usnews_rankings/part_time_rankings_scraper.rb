@@ -36,7 +36,7 @@ class UsnewsRankings::PartTimeRankingsScraper < ApplicationJob
     FIRST_PAGE_URL = "https://www.usnews.com/best-graduate-schools/top-law-schools/part-time-law-rankings"
 
     # @param [Integer] page_number
-    def initialize(page_number)
+    def initialize(page_number = 1)
       @page_number = page_number
     end
 

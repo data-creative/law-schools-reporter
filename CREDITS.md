@@ -19,6 +19,8 @@
 ### Ruby
 
   + [Ruby Float Division](https://www.codecademy.com/en/forum_questions/50fe886f68fc44056f00626c)
+  + [Removing Weird String Characters](https://stackoverflow.com/questions/1268289/how-to-get-rid-of-non-ascii-characters-in-ruby)
+  + [Removing Weird String Characters, cont'd](https://stackoverflow.com/questions/4111283/integer-value-of-a-character-in-ruby)
 
 ### RSpec
 

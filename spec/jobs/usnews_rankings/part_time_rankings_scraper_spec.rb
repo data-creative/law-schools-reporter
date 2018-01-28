@@ -50,16 +50,4 @@ RSpec.describe UsnewsRankings::PartTimeRankingsScraper, type: :job do
       end
     end
   end
-
-  #describe "#rankings_year" do
-  #  let(:mock_first_page_title){ "Best Part-time Law Programs Ranked in 2025 blah blah | US News Rankings blah" }
-#
-  #  before do
-  #    allow(job).to receive(:first_page_title).and_return(mock_first_page_title)
-  #  end
-#
-  #  it "should extract the year from the page title" do
-  #    expect(job.rankings_year).to eql(2025)
-  #  end
-  #end
 end
