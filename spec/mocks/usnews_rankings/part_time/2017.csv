@@ -1,0 +1,26 @@
+year,name,city,rank,tie,score,peer_score,lsat_25th,lsat_75th,acceptance_rate
+2017,Georgetown University,"Washington, DC",1,false,100,4.2,157,168,0.058
+2017,George Washington University,"Washington, DC",2,false,80,3.6,152,163,0.236
+2017,Fordham University,"New York, NY",3,false,76,3.3,156,164,0.282
+2017,George Mason University,"Arlington, VA",4,true,66,2.8,157,163,0.144
+2017,University of Maryland (Carey),"Baltimore, MD",4,true,66,3.0,154,161,0.332
+2017,American University (Washington),"Washington, DC",6,true,62,2.9,151,158,0.472
+2017,Temple University (Beasley),"Philadelphia, PA",6,true,62,2.8,155,161,0.349
+2017,University of Houston,"Houston, TX",6,true,62,2.8,152,159,0.15
+2017,Loyola Marymount University,"Los Angeles, CA",9,false,59,2.7,155,160,0.263
+2017,University of Denver (Sturm),"Denver, CO",10,false,58,2.8,152,158,0.529
+2017,Georgia State University,"Atlanta, GA",11,true,57,2.6,153,158,0.21
+2017,Lewis & Clark College (Northwestern),"Portland, OR",11,true,57,2.5,149,160,0.543
+2017,University of Connecticut,"Hartford, CT",11,true,57,2.7,152,158,0.331
+2017,Loyola University Chicago,"Chicago, IL",14,true,56,2.6,151,160,0.4
+2017,University of San Diego,"San Diego, CA",14,true,56,2.7,152,160,0.331
+2017,Brooklyn Law School,"Brooklyn, NY",16,true,53,2.6,153,159,0.264
+2017,"Rutgers, The State University of New Jersey",,16,true,53,2.5,150,157,0.331
+2017,Texas A&M University,"Fort Worth, TX",16,true,53,2.2,156,161,0.114
+2017,University of Nevada - Las Vegas,"Las Vegas, NV",19,true,52,2.5,152,157,0.278
+2017,Yeshiva University (Cardozo),"New York, NY",19,true,52,2.7,151,157,0.523
+2017,Seattle University,"Seattle, WA",21,false,50,2.5,150,159,0.529
+2017,Illinois Institute of Technology (Chicago-Kent),"Chicago, IL",22,true,49,2.6,150,158,0.511
+2017,Seton Hall University,"Newark, NJ",22,true,49,2.4,147,157,0.446
+2017,New York Law School,"New York, NY",24,true,46,2.2,148,152,0.405
+2017,St. Louis University,"St. Louis, MO",24,true,46,2.3,150,154,0.404
