@@ -1,0 +1,26 @@
+year,name,city,rank,tie,tuition_and_fees,enrollment_ft
+2017,Yale University,"New Haven, CT",1,false,"$59,865 per year (full-time)",632
+2017,Stanford University,"Stanford, CA",2,false,"$58,236 per year (full-time)",579
+2017,Harvard University,"Cambridge, MA",3,false,"$60,638 per year (full-time)","1,771"
+2017,University of Chicago,"Chicago, IL",4,false,"$59,541 per year (full-time)",603
+2017,Columbia University,"New York, NY",5,false,"$65,260 per year (full-time)","1,234"
+2017,New York University,"New York, NY",6,false,"$61,622 per year (full-time)","1,369"
+2017,University of Pennsylvania,"Philadelphia, PA",7,false,"$60,988 per year (full-time)",749
+2017,University of Michigan - Ann Arbor,"Ann Arbor, MI",8,true,"$55,012 per year (in-state, full-time); $58,012 per year (out-of-state, full-time)",929
+2017,University of Virginia,"Charlottesville, VA",8,true,"$56,300 per year (in-state, full-time); $59,300 per year (out-of-state, full-time)",893
+2017,Duke University,"Durham, NC",10,true,"$59,912 per year (full-time)",676
+2017,Northwestern University (Pritzker),"Chicago, IL",10,true,"$59,850 per year (full-time)",661
+2017,University of California - Berkeley,"Berkeley, CA",12,false,"$48,703 per year (in-state, full-time); $52,654 per year (out-of-state, full-time)",925
+2017,Cornell University,"Ithaca, NY",13,false,"$61,485 per year (full-time)",605
+2017,University of Texas - Austin,"Austin, TX",14,false,"$33,995 per year (in-state, full-time); $50,480 per year (out-of-state, full-time)",898
+2017,Georgetown University,"Washington, DC",15,true,"$57,576 per year (full-time)","1,721"
+2017,University of California - Los Angeles,"Los Angeles, CA",15,true,"$45,338 per year (in-state, full-time); $51,832 per year (out-of-state, full-time)",979
+2017,Vanderbilt University,"Nashville, TN",17,false,"$53,150 per year (full-time)",572
+2017,Washington University in St. Louis,"St. Louis, MO",18,false,"$53,506 per year (full-time)",701
+2017,University of Southern California (Gould),"Los Angeles, CA",19,false,"$60,339 per year (full-time)",649
+2017,University of Iowa,"Iowa City, IA",20,true,"$24,930 per year (in-state, full-time); $43,214 per year (out-of-state, full-time)",420
+2017,University of Notre Dame,"Notre Dame, IN",20,true,"$54,297 per year (full-time)",599
+2017,Emory University,"Atlanta, GA",22,false,"$53,350 per year (full-time)",872
+2017,Boston University,"Boston, MA",23,true,"$51,210 per year (full-time)",710
+2017,University of Minnesota,"Minneapolis, MN",23,true,"$43,244 per year (in-state, full-time); $51,590 per year (out-of-state, full-time)",555
+2017,Arizona State University (O'Connor),"Phoenix, AZ",25,false,"$27,226 per year (in-state, full-time); $43,896 per year (out-of-state, full-time)",718
